@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  LaunchTheme — shown while Flutter engine initialises (splash screen).
+  NormalTheme — switched to after Flutter draws its first frame.
+-->
+<resources>
+    <style name="LaunchTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <!-- Solid ARR green splash background matching flutter_native_splash config -->
+        <item name="android:windowBackground">@color/arr_green</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
+        <!-- Transparent after Flutter takes over -->
+        <item name="android:windowBackground">?android:colorBackground</item>
+    </style>
+</resources>

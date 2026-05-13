@@ -1,0 +1,80 @@
+name: arr_mobile
+description: ARR DMRV Platform — Flutter mobile app for tree planting and forest monitoring.
+version: 1.0.0+1
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.5.1
+  riverpod_annotation: ^2.3.5
+
+  # Local database (offline-first)
+  drift: ^2.18.0
+  drift_flutter: ^0.2.1
+  sqlite3_flutter_libs: ^0.5.24
+  path_provider: ^2.1.3
+  path: ^1.9.0
+
+  # HTTP
+  dio: ^5.4.3
+
+  # Maps
+  flutter_map: ^7.0.2
+  latlong2: ^0.9.1
+
+  # Location
+  geolocator: ^12.0.0
+
+  # Camera & photos
+  camera: ^0.11.0
+  image_picker: ^1.1.2
+
+  # Navigation
+  go_router: ^14.2.0
+
+  # Storage & connectivity
+  shared_preferences: ^2.3.1
+  connectivity_plus: ^6.0.3
+
+  # Internationalisation
+  intl: ^0.19.0
+
+  # Unique IDs
+  uuid: ^4.4.2
+
+  # UI helpers
+  flutter_svg: ^2.0.10+1
+  cached_network_image: ^3.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.11
+  drift_dev: ^2.18.0
+  riverpod_generator: ^2.4.0
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icon/
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+
+flutter_native_splash:
+  color: "#16a34a"
+  image: assets/icon/splash_logo.png
+  android: true
+  ios: true

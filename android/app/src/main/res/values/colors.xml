@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ARR platform primary green — used for splash screen background -->
+    <color name="arr_green">#16a34a</color>
+</resources>

@@ -1,0 +1,33 @@
+# Flutter generated / build artifacts
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.iml
+*.lock
+
+# Android — sensitive files never committed
+android/local.properties
+android/key.properties
+*.jks
+*.keystore
+
+# iOS — CocoaPods and generated Xcode artifacts
+ios/Pods/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/.symlinks/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+
+# Environment files — keep .env.example only
+.env*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.swp

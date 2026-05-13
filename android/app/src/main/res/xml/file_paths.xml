@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  FileProvider path declarations for in-app camera capture.
+  Used by: AndroidManifest.xml → provider → android:resource="@xml/file_paths"
+  Allows the camera intent to write to external storage and cache.
+-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- External storage root — covers DCIM and Pictures directories -->
+    <external-path name="external_files" path="."/>
+    <!-- App cache directory — used for temporary camera captures -->
+    <cache-path name="cache_files" path="."/>
+    <!-- App-specific external files dir (no permission needed on API 29+) -->
+    <external-files-path name="external_app_files" path="."/>
+</paths>
