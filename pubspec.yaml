@@ -48,6 +48,11 @@ dependencies:
   # Unique IDs
   uuid: ^4.4.2
 
+  # Push notifications (FCM)
+  firebase_core: ^3.3.0
+  firebase_messaging: ^15.1.0
+  flutter_local_notifications: ^17.2.2
+
   # UI helpers
   flutter_svg: ^2.0.10+1
   cached_network_image: ^3.3.1
@@ -68,10 +73,12 @@ flutter:
     - assets/images/
     - assets/icon/
 
-flutter_icons:
+flutter_launcher_icons:
   android: true
-  ios: true
+  ios: false           # iOS xcodeproj not present on Windows dev machine; generate on Mac CI
   image_path: "assets/icon/app_icon.png"
+  remove_alpha_ios: true
+  min_sdk_android: 21
 
 flutter_native_splash:
   color: "#16a34a"

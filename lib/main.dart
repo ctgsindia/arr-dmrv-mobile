@@ -9,15 +9,24 @@
 /// Uses: AuthProvider, SyncService, AppRouter
 library;
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/config/app_router.dart';
+import 'core/services/notification_service.dart';
 import 'core/services/sync_service.dart';
 import 'core/services/permission_service.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialise Firebase (requires google-services.json on Android / GoogleService-Info.plist on iOS)
+  await Firebase.initializeApp();
+
+  // Initialise FCM + local notifications (registers background handler)
+  await NotificationService.init();
+
   runApp(const ProviderScope(child: ArrApp()));
 }
 

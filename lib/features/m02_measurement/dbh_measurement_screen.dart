@@ -19,6 +19,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../core/config/api_config.dart';
 import '../../core/services/api_service.dart';
+import '../../core/services/camera_service.dart';
 import '../../core/services/sync_service.dart';
 import '../../core/widgets/geo_photo_widget.dart';
 import '../../core/utils/error_messages.dart';

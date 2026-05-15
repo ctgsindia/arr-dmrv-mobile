@@ -21,6 +21,9 @@ import '../../features/m04_survival/survival_check_screen.dart';
 import '../../features/biomass/biomass_result_screen.dart';
 import '../../features/participants/participant_registration_screen.dart';
 import '../../features/profile/profile_screen.dart';
+import '../../features/nursery/nursery_screen.dart';
+import '../../features/nursery/nursery_dispatch_screen.dart';
+import '../../features/biodiversity/biodiversity_survey_screen.dart';
 import '../widgets/sync_status_bar.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -116,6 +119,21 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       // Profile
       GoRoute(path: '/profile', builder: (_, __) => const ProfileScreen()),
+
+      // Nursery management
+      GoRoute(path: '/nursery', builder: (_, __) => const NurseryScreen()),
+
+      // Nursery dispatch — record sapling dispatch from nursery to field
+      GoRoute(path: '/nursery-dispatch', builder: (_, __) => const NurseryDispatchScreen()),
+
+      // Biodiversity survey
+      GoRoute(
+        path: '/biodiversity-survey',
+        builder: (_, state) {
+          final extra = state.extra as Map? ?? {};
+          return BiodiversitySurveyScreen(programmeId: extra['programmeId'] as String? ?? '');
+        },
+      ),
     ],
   );
 });

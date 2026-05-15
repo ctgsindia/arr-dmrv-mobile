@@ -1,4 +1,4 @@
-package in.arrplatform.mobile
+package com.truecarbon.arrapp
 
 import io.flutter.embedding.android.FlutterActivity
 

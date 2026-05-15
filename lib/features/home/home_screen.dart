@@ -90,6 +90,9 @@ class HomeScreen extends ConsumerWidget {
                               _ActionTile(icon: Icons.checklist, label: 'Survival\nCheck', color: const Color(0xFFb45309), onTap: () => context.push('/survival-check')),
                               _ActionTile(icon: Icons.people, label: 'Register\nLandowner', color: const Color(0xFF0891b2), onTap: () => context.push('/register-participant')),
                               _ActionTile(icon: Icons.bar_chart, label: 'Biomass\nResult', color: const Color(0xFF9333ea), onTap: () => context.push('/biomass-result')),
+                              _ActionTile(icon: Icons.warehouse, label: 'Nursery\nMgmt', color: const Color(0xFF065f46), onTap: () => context.push('/nursery')),
+                              _ActionTile(icon: Icons.local_shipping, label: 'Nursery\nDispatch', color: const Color(0xFF0f766e), onTap: () => context.push('/nursery-dispatch')),
+                              _ActionTile(icon: Icons.eco, label: 'Biodiversity\nSurvey', color: const Color(0xFF166534), onTap: () => context.push('/biodiversity-survey')),
                             ],
                           ),
                         ],
@@ -197,7 +200,7 @@ class _ProgrammeCard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: const Color(0xFFbbf7d0)),
-          boxShadow: const [BoxShadow(color: Colors.black08, blurRadius: 3, offset: Offset(0, 1))],
+          boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 3, offset: const Offset(0, 1))],
         ),
         child: Row(
           children: [

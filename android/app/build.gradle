@@ -1,44 +1,32 @@
 // ARR DMRV — Android app-level build.gradle
-// Flutter Gradle plugin is applied via the settings.gradle flutterSdkPath approach.
+// Migrated to declarative plugins block (Flutter 3.22+)
+
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
 
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
+    localPropertiesFile.withReader('UTF-8') { reader -> localProperties.load(reader) }
 }
 
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
-}
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode') ?: '1'
+def flutterVersionName = localProperties.getProperty('flutter.versionName') ?: '1.0.0'
 
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
-}
-
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0.0'
-}
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
-// Release signing config — reads from env vars set in CI / local key.properties
+// Release signing config — reads from key.properties file or env vars (CI)
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
-    keystorePropertiesFile.withReader('UTF-8') { reader ->
-        keystoreProperties.load(reader)
-    }
+    keystorePropertiesFile.withReader('UTF-8') { reader -> keystoreProperties.load(reader) }
 }
 
 android {
-    compileSdkVersion 34
+    namespace "com.truecarbon.arrapp"
+    compileSdk 36
+    ndkVersion "28.2.13676358"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -54,17 +42,16 @@ android {
     }
 
     defaultConfig {
-        applicationId "in.arrplatform.mobile"
-        minSdkVersion 21               // Android 5.0 Lollipop — covers ~98% of active devices
-        targetSdkVersion 34            // Android 14
+        applicationId "com.truecarbon.arrapp"
+        minSdk flutter.minSdkVersion
+        targetSdk 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        multiDexEnabled true           // needed for large dependency graph (drift + riverpod + maps)
+        multiDexEnabled true
     }
 
     signingConfigs {
         release {
-            // Prefer key.properties file (local dev) then fall back to env vars (CI)
             keyAlias       keystoreProperties['keyAlias']       ?: System.getenv('KEY_ALIAS')
             keyPassword    keystoreProperties['keyPassword']    ?: System.getenv('KEY_PASSWORD')
             storeFile      keystoreProperties['storeFile']      ? file(keystoreProperties['storeFile']) :
@@ -80,11 +67,9 @@ android {
             versionNameSuffix "-debug"
         }
         release {
-            // Signing config — falls back to debug signing if release keystore not provided
             signingConfig signingConfigs.release.storeFile != null
                 ? signingConfigs.release
                 : signingConfigs.debug
-            // Keep minify off — Flutter tree-shakes Dart code; ProGuard on top causes issues
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -97,7 +82,6 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    // AndroidX core for FileProvider support
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.0"
     implementation 'androidx.core:core-ktx:1.12.0'
 }

@@ -7,9 +7,11 @@
 library;
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/services/api_service.dart';
+import '../../core/services/notification_service.dart';
 import '../../core/config/api_config.dart';
 
 // ─── State ────────────────────────────────────────────────────────────────────
@@ -53,15 +55,16 @@ class AuthState {
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
-  return AuthNotifier(ref.read(apiServiceProvider));
+  return AuthNotifier(ref.read(apiServiceProvider), ref.read(notificationServiceProvider));
 });
 
 // ─── Notifier ─────────────────────────────────────────────────────────────────
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final ApiService _api;
+  final NotificationService _notifications;
 
-  AuthNotifier(this._api) : super(const AuthState()) {
+  AuthNotifier(this._api, this._notifications) : super(const AuthState()) {
     _restoreSession();
   }
 
@@ -105,6 +108,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
         role:     user['role'] as String?,
         name:     user['name'] as String?,
       );
+
+      // Register FCM token with backend (fire-and-forget — don't block login flow)
+      _registerFcmToken();
     } on ApiException catch (e) {
       state = state.copyWith(loading: false, error: e.message);
       rethrow;
@@ -118,6 +124,19 @@ class AuthNotifier extends StateNotifier<AuthState> {
       };
       state = state.copyWith(loading: false, error: msg);
       rethrow;
+    }
+  }
+
+  /// Register the device FCM token with the API after successful authentication.
+  /// Fire-and-forget — errors are logged but never surface to the user.
+  Future<void> _registerFcmToken() async {
+    try {
+      final token = await _notifications.getToken();
+      if (token == null) return;
+      await _api.put(ApiConfig.fcmToken, data: {'fcmToken': token});
+      debugPrint('[Auth] FCM token registered with backend');
+    } catch (e) {
+      debugPrint('[Auth] FCM token registration failed (non-critical): $e');
     }
   }
 

@@ -39,6 +39,7 @@ class ApiConfig {
   static const String login          = '/auth/login';
   static const String refresh        = '/auth/refresh';
   static const String me             = '/me';
+  static const String fcmToken       = '/me/fcm-token';
   static const String programmes     = '/programmes';
   static const String species        = '/species';
   static const String photoUpload    = '/photos/upload';
@@ -52,4 +53,18 @@ class ApiConfig {
   static String biomassHistory(String programmeId) => '/programmes/$programmeId/biomass';
   static String compliance(String programmeId) => '/programmes/$programmeId/compliance';
   static String participants(String programmeId) => '/programmes/$programmeId/participants';
+
+  // Nursery supply chain
+  static const String nurseries        = '/nursery';
+  static const String nurserySummary   = '/nursery/summary';
+  static String nurseryBatches(String nurseryId) => '/nursery/$nurseryId/batches';
+  static String nurseryDemands(String programmeId) => '/programmes/$programmeId/nursery-demands';
+  static String dispatches(String programmeId) => '/programmes/$programmeId/dispatches';
+
+  // Biodiversity
+  static String biodiversity(String programmeId) => '/programmes/$programmeId/biodiversity';
+  static String biodiversitySummary(String programmeId) => '/programmes/$programmeId/biodiversity/summary';
+
+  // Livelihoods
+  static String livelihoods(String programmeId) => '/programmes/$programmeId/livelihoods';
 }
