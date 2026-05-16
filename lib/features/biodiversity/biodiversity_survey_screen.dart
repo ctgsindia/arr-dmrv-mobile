@@ -56,7 +56,7 @@ class _BiodiversitySurveyScreenState extends ConsumerState<BiodiversitySurveyScr
     try {
       final gps = ref.read(gpsServiceProvider);
       final pos = await gps.getCurrentPosition();
-      setState(() { _gpsLat = pos.latitude; _gpsLng = pos.longitude; });
+      setState(() { _gpsLat = pos.lat; _gpsLng = pos.lng; });
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
